@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dev's Discovery - The Simulation Hypothesis (Minimal Dark)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-primary: #FFD700; /* Original Golden Yellow */
+    --brand-light: #FFE44D;   /* Original Light Yellow */
+    --brand-dark: #B39700;    /* Original Deep Gold */
+    --light-bg: #FFFCF0;      /* Original Warm Cream (Minimal use) */
+    --light-border: rgba(255, 215, 0, 0.1);
+    --dark-bg: #0A0A09;      /* Original Deep Onyx Black */
+    --brand-gradient: linear-gradient(165deg, var(--brand-dark) 0%, var(--brand-primary) 50%, var(--brand-light) 100%);
+    --aquire-glow: 0 0 12px rgba(255, 215, 0, 0.3);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #111; 
+    display: flex; justify-content: center; align-items: center; 
+    min-height: 100vh; padding: 20px;
+  }
+
+  /* Font Pairing Replication for Aquire */
+  .aquire, .aquire_tag { font-family: 'Syne', sans-serif; font-weight: 700; }
+  .aquire_mono { font-family: 'Major Mono Display', monospace; }
+  .sans { font-family: 'Syne', sans-serif; font-weight: 400; }
+  
+  /* Instagram Wrapper */
+  .ig-frame {
+    width: 420px; background: #fff; border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3); overflow: hidden;
+  }
+
+  .ig-header {
+    display: flex; align-items: center; padding: 12px 16px; gap: 10px; border-bottom: 1px solid #efefef;
+  }
+  .ig-avatar {
+    width: 32px; height: 32px; background: var(--brand-primary); border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    color: var(--dark-bg); font-weight: 700; font-size: 16px; font-family: 'Syne', sans-serif;
+  }
+  .ig-user-info { flex: 1; }
+  .ig-handle { font-size: 13px; font-weight: 600; color: #262626; }
+  .ig-location { font-size: 11px; color: #8e8e8e; font-family: 'Major Mono Display', monospace;}
+
+  /* Carousel Track */
+  .carousel-viewport {
+    width: 420px; height: 525px; overflow: hidden; position: relative; cursor: grab;
+  }
+  .carousel-viewport:active { cursor: grabbing; }
+  
+  .carousel-track {
+    display: flex; height: 100%; width: 700%; transition: transform 0.3s ease-out;
+  }
+
+  .slide {
+    width: 420px; height: 525px; flex-shrink: 0; position: relative;
+    display: flex; flex-direction: column; padding: 0 36px 52px 36px;
+  }
+
+  /* Matrix Grid Background for All Slides */
+  .grid-bg {
+    background-color: var(--dark-bg);
+    background-image: 
+      linear-gradient(rgba(255, 215, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 215, 0, 0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  .slide.center { justify-content: center; }
+  .slide.bottom { justify-content: flex-end; }
+
+  /* Minimalist Upgraded UI */
+  .progress-bar {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 16px 28px 20px; z-index: 10; display: flex; align-items: center; gap: 10px;
+  }
+  .pb-track { flex: 1; height: 2px; border-radius: 1px; overflow: hidden; }
+  .pb-fill { height: 100%; border-radius: 1px; box-shadow: var(--aquire-glow); }
+  .pb-label { font-size: 10px; font-weight: 700; font-family: 'Major Mono Display', monospace; }
+
+  .swipe-arrow {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 48px;
+    z-index: 9; display: flex; align-items: center; justify-content: center;
+  }
+
+  .logo-lockup {
+    position: absolute; top: 36px; left: 36px; display: flex; align-items: center; gap: 10px; z-index: 10;
+  }
+  .logo-circle {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--brand-primary); color: var(--dark-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 700; font-family: 'Syne', sans-serif;
+    box-shadow: var(--aquire-glow);
+  }
+  .logo-text { font-size: 13px; font-weight: 600; letter-spacing: 0.5px; }
+
+  h1, h2 { font-size: 30px; font-weight: 700; letter-spacing: -1px; line-height: 1.1; margin-bottom: 12px; }
+  p.body-text { font-size: 13px; line-height: 1.5; font-family: 'Syne', sans-serif; }
+  
+  /* Modernized Aquire Tags */
+  .tag { 
+    display: inline-block; font-size: 10px; font-weight: 700; 
+    letter-spacing: 1px; margin-bottom: 16px; text-transform: uppercase;
+    color: var(--brand-primary); text-shadow: var(--aquire-glow);
+  }
+
+  /* Minimal Data Box */
+  .data-box {
+    padding: 14px; background: rgba(255, 215, 0, 0.04); border-radius: 4px;
+    border-left: 2px solid var(--brand-primary); margin-bottom: 10px;
+  }
+
+  /* IG Bottom Chrome */
+  .ig-actions { padding: 12px 16px; display: flex; gap: 16px; }
+  .ig-actions svg { width: 24px; height: 24px; }
+  .ig-dots { display: flex; justify-content: center; gap: 4px; margin-top: -18px; margin-bottom: 10px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #dbdbdb; transition: background 0.2s; }
+  .dot.active { background: #0095f6; }
+  .ig-caption { padding: 0 16px 16px; font-size: 13px; color: #262626; line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<div class="ig-frame">
+  <div class="ig-header">
+    <div class="ig-avatar">D</div>
+    <div class="ig-user-info">
+      <div class="ig-handle">dev.vekariya</div>
+      <div class="ig-location aquire_mono">sys.init(universe)</div>
+    </div>
+  </div>
+
+  <div class="carousel-viewport" id="viewport">
+    <div class="carousel-track" id="track">
+      
+      <div class="slide center grid-bg">
+        <div class="logo-lockup">
+          <div class="logo-circle">D</div>
+          <span class="logo-text sans" style="color: #fff;">Dev's Discovery</span>
+        </div>
+        <div style="margin-top: 40px; text-align: center;">
+          <h1 class="aquire" style="color: #fff;">What if everything you know is code?</h1>
+          <p class="body-text" style="color: #aaa;">The Simulation Hypothesis in focus.</p>
+        </div>
+        
+        <div class="swipe-arrow" style="background: linear-gradient(to right, transparent, rgba(255,215,0,0.03));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="rgba(255,215,0,0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="progress-bar">
+          <div class="pb-track" style="background: rgba(255,255,255,0.08);">
+            <div class="pb-fill" style="width: 14.28%; background: var(--brand-primary);"></div>
+          </div>
+          <span class="pb-label" style="color: rgba(255,255,255,0.4);">01/07</span>
+        </div>
+      </div>
+
+      <div class="slide center grid-bg">
+        <span class="tag aquire_tag">> THE TRILEMMA</span>
+        <h2 class="aquire" style="color: #fff;">Is reality just system resources?</h2>
+        <div class="data-box" style="margin-top: 16px;">
+          <p class="body-text" style="color: #ddd;">The logic holds: Humanity either goes extinct, loses interest, or we are in a simulation. The probabilities are not on reality's side.</p>
+        </div>
+        
+        <div class="swipe-arrow" style="background: linear-gradient(to right, transparent, rgba(255,215,0,0.03));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="rgba(255,215,0,0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="progress-bar">
+          <div class="pb-track" style="background: rgba(255,255,255,0.08);">
+            <div class="pb-fill" style="width: 28.57%; background: var(--brand-primary);"></div>
+          </div>
+          <span class="pb-label" style="color: rgba(255,255,255,0.4);">02/07</span>
+        </div>
+      </div>
+
+      <div class="slide bottom grid-bg">
+        <span class="tag aquire_tag">> HARDWARE LIMITS</span>
+        <h2 class="aquire" style="color: #fff;">Physics is just memory caps.</h2>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--light-border);">
+          <span style="color:var(--brand-primary);font-size:14px;width:16px;">⚡</span>
+          <p class="body-text" style="color:#ddd;">Speed of Light = CPU max clock rate.</p>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--light-border);">
+          <span style="color:var(--brand-primary);font-size:14px;width:16px;">✓</span>
+          <p class="body-text" style="color:#ddd;">Planck Length = Minimum pixel resolution.</p>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;">
+          <span style="color:var(--brand-primary);font-size:14px;width:16px;">×</span>
+          <p class="body-text" style="color:#ddd;">Observer Effect = Rendering on demand.</p>
+        </div>
+
+        <div class="swipe-arrow" style="background: linear-gradient(to right, transparent, rgba(255,215,0,0.03));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="rgba(255,215,0,0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="progress-bar">
+          <div class="pb-track" style="background: rgba(255,255,255,0.08);">
+            <div class="pb-fill" style="width: 42.85%; background: var(--brand-primary);"></div>
+          </div>
+          <span class="pb-label" style="color: rgba(255,255,255,0.4);">03/07</span>
+        </div>
+      </div>
+
+      <div class="slide center" style="background: var(--brand-gradient);">
+        <span class="tag aquire_tag" style="color: rgba(0,0,0,0.5); text-shadow: none;">> PROOF_FOUND</span>
+        <h2 class="aquire" style="color: var(--dark-bg);">Embedded code in nature.</h2>
+        
+        <div style="padding:14px;background:rgba(0,0,0,0.08);border-radius:4px;border:1px dashed rgba(0,0,0,0.2);">
+          <p class="aquire_mono" style="font-size:11px;color:rgba(0,0,0,0.6);font-weight:700;">Claude Shannon codes identified in theoretical physics—the exact error-correcting codes used to prevent data loss in web browsers. Proof of an intelligent rendering engine?</p>
+        </div>
+
+        <div class="swipe-arrow" style="background: linear-gradient(to right, transparent, rgba(0,0,0,0.04));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="rgba(0,0,0,0.3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="progress-bar">
+          <div class="pb-track" style="background: rgba(0,0,0,0.1);">
+            <div class="pb-fill" style="width: 57.14%; background: var(--dark-bg); box-shadow: none;"></div>
+          </div>
+          <span class="pb-label" style="color: rgba(0,0,0,0.4);">04/07</span>
+        </div>
+      </div>
+
+      <div class="slide bottom grid-bg">
+        <span class="tag aquire_tag">> RENDER_LOOP</span>
+        <h2 class="aquire" style="color: #fff;">Nothing exists until you look.</h2>
+        <p class="body-text" style="color: #aaa;">Quantam mechanics shows probability collapse. This saves memory in the simulation rendering engine—only rendering reality when an active observer requests data.</p>
+        
+        <div class="swipe-arrow" style="background: linear-gradient(to right, transparent, rgba(255,215,0,0.03));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="rgba(255,215,0,0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="progress-bar">
+          <div class="pb-track" style="background: rgba(255,255,255,0.08);">
+            <div class="pb-fill" style="width: 71.42%; background: var(--brand-primary);"></div>
+          </div>
+          <span class="pb-label" style="color: rgba(255,255,255,0.4);">05/07</span>
+        </div>
+      </div>
+
+      <div class="slide center grid-bg">
+        <span class="tag aquire_tag">> GAMEPLAY LOOP</span>
+        <h2 class="aquire" style="color: #fff; text-align: center;">SURVIVAL MECHANICS</h2>
+        
+        <div style="display:inline-flex;align-items:center;gap:10px;padding:8px 16px;background:rgba(255,215,0,0.08);border-radius:4px;margin-bottom:8px;">
+          <span style="color:var(--brand-primary);font-size:16px;">⚡</span>
+          <p class="body-text" style="color:#ddd; font-weight:600;">Optimize skills, level up your avatar.</p>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:10px;padding:8px 16px;background:rgba(255,215,0,0.08);border-radius:4px;margin-bottom:8px;">
+          <span style="color:var(--brand-primary);font-size:16px;">🌍</span>
+          <p class="body-text" style="color:#ddd; font-weight:600;">Complete objectives, map exploring.</p>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:10px;padding:8px 16px;background:rgba(255,215,0,0.08);border-radius:4px;">
+          <span style="color:var(--brand-primary);font-size:16px;">🤝</span>
+          <p class="body-text" style="color:#ddd; font-weight:600;">Engage in active co-op play.</p>
+        </div>
+
+        <div class="swipe-arrow" style="background: linear-gradient(to right, transparent, rgba(255,215,0,0.03));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="rgba(255,215,0,0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="progress-bar">
+          <div class="pb-track" style="background: rgba(255,255,255,0.08);">
+            <div class="pb-fill" style="width: 85.71%; background: var(--brand-primary);"></div>
+          </div>
+          <span class="pb-label" style="color: rgba(255,255,255,0.4);">06/07</span>
+        </div>
+      </div>
+
+      <div class="slide center" style="background: var(--brand-gradient);">
+        <div class="logo-lockup">
+          <div class="logo-circle">D</div>
+          <span class="logo-text sans" style="color: var(--dark-bg);">Dev's Discovery</span>
+        </div>
+        <div style="margin-top: 20px; text-align: center;">
+          <h2 class="aquire" style="color: var(--dark-bg);">SYS_HALT. Player detected.</h2>
+          <div style="display:inline-flex;align-items:center;gap:10px;padding:12px 28px;background:var(--dark-bg);color:#fff;font-family:'Major Mono Display', monospace;font-weight:700;font-size:12px;border-radius:28px;">
+            _SELECT_COMMAND (Drop comment)
+          </div>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="pb-track" style="background: rgba(0,0,0,0.1);">
+            <div class="pb-fill" style="width: 100%; background: var(--dark-bg); box-shadow: none;"></div>
+          </div>
+          <span class="pb-label" style="color: rgba(0,0,0,0.4);">07/07</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ig-dots" id="dots">
+    <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  </div>
+
+  <div class="ig-actions">
+    <svg aria-label="Like" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.174 2.08 2.987 3.307 2.987s2.467-1.813 3.307-2.987a4.21 4.21 0 0 1 3.675-1.941Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path></svg>
+    <svg aria-label="Comment" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path></svg>
+    <svg aria-label="Share" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><line fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" x1="22" x2="9.218" y1="3" y2="10.083"></line><polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></polygon></svg>
+  </div>
+
+  <div class="ig-caption">
+    <strong>dev.vekariya</strong> The final remade minimalist dark aesthetic exploring the code behind reality. Is your life your own, or just an optimized data point? 🕶️💊 #simulationhypothesis #cyber #minimal #darkmode #spacegrotesk <br><br>
+    <span style="color: #8e8e8e; font-size: 11px;">JUST NOW</span>
+  </div>
+</div>
+
+<script>
+  const track = document.getElementById('track');
+  const dots = document.querySelectorAll('.dot');
+  let startX = 0, currentX = 0, currentIndex = 0;
+  const slideWidth = 420;
+  const totalSlides = 7;
+
+  track.addEventListener('mousedown', dragStart);
+  track.addEventListener('touchstart', dragStart, {passive: true});
+  window.addEventListener('mouseup', dragEnd);
+  window.addEventListener('touchend', dragEnd);
+  window.addEventListener('mousemove', drag);
+  window.addEventListener('touchmove', drag, {passive: true});
+
+  function dragStart(e) {
+    startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+    track.style.transition = 'none';
+  }
+
+  function drag(e) {
+    if (!startX) return;
+    const x = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+    const walk = x - startX;
+    currentX = (-currentIndex * slideWidth) + walk;
+    track.style.transform = `translateX(${currentX}px)`;
+  }
+
+  function dragEnd(e) {
+    if (!startX) return;
+    const x = e.type.includes('mouse') ? e.pageX : e.changedTouches[0].clientX;
+    const walk = x - startX;
+    
+    if (walk < -50 && currentIndex < totalSlides - 1) currentIndex++;
+    if (walk > 50 && currentIndex > 0) currentIndex--;
+    
+    track.style.transition = 'transform 0.3s ease-out';
+    track.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
+    
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+    startX = 0;
+  }
+</script>
+
+</body>
+</html>
